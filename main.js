@@ -25,7 +25,7 @@ var RangeDownloader = (function() {
             _self.lastLoaded = 0;
             _self.running = xhr.status < 400 && _self.downloadedSize < _self.totalSize;
             if(_self.downloadedSize >= _self.totalSize) {
-                typeof _self.onload == "function" ? _self.onload() : 0;
+                typeof _self.onload == "function" ? _self.onload(_self) : 0;
             }
             if(_self.running === true) {
                 _self.start();
@@ -33,12 +33,12 @@ var RangeDownloader = (function() {
         }
         xhr.onerror = function (e) {
             _self.running = false;
-            typeof _self.onerror == "function" ? _self.onerror(e) : 0;
+            typeof _self.onerror == "function" ? _self.onerror(e,_self) : 0;
         }
         xhr.onprogress = function (e) {
             _self.downloadedSize += e.loaded - _self.lastLoaded;
             _self.lastLoaded = e.loaded;
-            typeof _self.onprogress == "function" ? _self.onprogress(e) : 0;
+            typeof _self.onprogress == "function" ? _self.onprogress(e,_self) : 0;
         }
         xhr.onreadystatechange = function () {
             if(xhr.readyState == 3){
@@ -61,7 +61,7 @@ var RangeDownloader = (function() {
         this.totalSize = 0;
         this.supportPartial = false;
     }
-    RangeDownloader.prototype.getReasultAsBlob = function () {
+    RangeDownloader.prototype.getResultAsBlob = function () {
         return new Blob(this.chucks);
     }
     RangeDownloader.prototype.running = false;
