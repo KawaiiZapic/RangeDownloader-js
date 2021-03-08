@@ -5,8 +5,8 @@
 ```javascript
 let downloader = new RangeDownloader({
   url: "https://local.zapic.moe/test.bin",
-  onload: () => {
-    let res = this.getResultAsBlob();
+  onload: (self) => {
+    let res = self.getResultAsBlob();
     let ele = document.createElement("a");
     ele.download = "test.bin";
     ele.href = URL.createObjectURL(res);
