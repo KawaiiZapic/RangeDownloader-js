@@ -11,8 +11,9 @@ let downloader = new RangeDownloader({
     ele.download = "test.bin";
     ele.href = URL.createObjectURL(res);
     document.body.append(ele);
-    a.click();
+    ele.click();
     URL.revokeObjectURL(res);
+    self.cancel();
   },
   onprogress: (e,self) => {
     console.log(self.downloadedSize.toString() + " / " + self.totalSize.toString());
