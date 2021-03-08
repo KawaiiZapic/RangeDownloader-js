@@ -14,8 +14,8 @@ let downloader = new RangeDownloader({
     a.click();
     URL.revokeObjectURL(res);
   },
-  onprogress: () => {
-    console.log(this.downloadedSize.toString() + " / " + this.totalSize.toString());
+  onprogress: (e,self) => {
+    console.log(self.downloadedSize.toString() + " / " + self.totalSize.toString());
   }
 });
 downloader.start();
