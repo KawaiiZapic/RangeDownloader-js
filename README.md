@@ -2,10 +2,10 @@
 用JavaScript实现支持断点续传的下载器
 
 ## Compatibility
-|Version|IE|Chrome|Firefox|Safari|
-|:-|:-|:-|:-|:-|
-|Main|No|39+|42+|10.1+|
-|Compatible|10+|39+|42+|10.1+|
+|Version|Depend|IE|Chrome|Firefox|Safari|
+|:-|:-|:-|:-|:-|:-|
+|Main|Fetch|No|39+|42+|10.1+|
+|Compatible|XHR|10+|39+|42+|10.1+|
 ## Demo
 ```javascript
 let downloader = new RangeDownloader({
