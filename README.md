@@ -5,7 +5,7 @@
 |Version|IE|Chrome|Firefox|Safari|
 |:-|:-|:-|:-|:-|
 |Main|No|39+|42+|10.1+|
-|Compatibility|10+|39+|42+|10.1+|
+|Compatible|10+|39+|42+|10.1+|
 ## Demo
 ```javascript
 let downloader = new RangeDownloader({
