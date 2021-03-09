@@ -1,6 +1,11 @@
 # RangeDownloader-js
 用JavaScript实现支持断点续传的下载器
 
+## Compatibility
+|Version|IE|Chrome|Firefox|Safari|
+|:-|:-|:-|:-|:-|
+|Main|No|39+|42+|10.1+|
+|Compatibility|10+|39+|42+|10.1+|
 ## Demo
 ```javascript
 let downloader = new RangeDownloader({
