@@ -16,9 +16,12 @@ var RangeDownloader = (function() {
             },
             signal: this.abortController.signal,
         }).then(function (resp){
-
             if(resp.status == 206){
                 _self.supportPartial = true;
+                _self.totalSize = parseInt(resp.headers.get("Content-Range").split("/")[1]);
+            } else {
+                _self.supportPartial = false;
+                _self.totalSize = parseInt(resp.headers.get("Content-Length"));
             }
             _self.running = true;
             return resp.body.getReader();
