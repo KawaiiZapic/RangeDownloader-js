@@ -1,3 +1,12 @@
+/**
+ *
+ * RangeDownloader.js by Zapic @ 2021
+ * https://github.com/KawaiiZapic/RangeDownloader-js/
+ *
+ * Please DO NOT remove this copyright message, as the basic respect for original author.
+ *
+ */
+
 var RangeDownloader = (function() {
     var RangeDownloader = function (param) {
         this.url = param.url || null;
