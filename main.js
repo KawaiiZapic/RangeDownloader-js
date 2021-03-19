@@ -7,7 +7,7 @@
  *
  */
 
-var RangeDownloader = (function() {
+ var RangeDownloader = (function() {
     var RangeDownloader = function (param) {
         this.url = param.url || null;
         if(!this.url){throw Error("Invaild url.");}
@@ -20,39 +20,41 @@ var RangeDownloader = (function() {
         if(this.loaded){return;}
         var _self = this;
         this.abortController = new AbortController();
-        fetch(this.url,{
-            headers: {
-                "Range": "bytes="+this.downloadedSize.toString() + "-"
-            },
-            signal: this.abortController.signal,
-        }).then(function (resp){
-             _self.supportPartial = (resp.status == 206);
-            _self.totalSize = parseInt(resp.headers.get("Content-Length"));
-            _self.totalSize = _self.totalSize == NaN ? parseInt(resp.headers.get("Content-Range").split("/")[1]) : _self.totalSize;
-            _self.running = true;
-            return resp.body.getReader();
-        }).then(async function (reader){
-            var ok = false;
-            while(!ok){
-                var con = await reader.read();
-                ok = con.done;
-                if(typeof con.value == "undefined"){break;}
-                _self.chucks.push(con.value);
-                _self.downloadedSize += con.value.byteLength;
-                typeof _self.onprogress == "function" ? _self.onprogress(_self) : 0;
-            }
-            if(ok){
-                typeof _self.onload == "function" ? _self.onload(_self) : 0;
-            }
-            _self.running = false;
-            _self.loaded = true;
-        }).catch(function (err){
+        try {
+            fetch(this.url,{
+                headers: {
+                    "Range": "bytes=" + this.downloadedSize.toString() + "-"
+                },
+                signal: this.abortController.signal,
+            }).then(function (resp){
+                 _self.supportPartial = (resp.status == 206);
+                _self.totalSize = parseInt(resp.headers.get("Content-Length"));
+                _self.totalSize = _self.totalSize == NaN ? parseInt(resp.headers.get("Content-Range").split("/")[1]) : _self.totalSize;
+                _self.running = true;
+                return resp.body.getReader();
+            }).then(async function (reader){
+                var ok = false;
+                while(!ok){
+                    var con = await reader.read();
+                    ok = con.done;
+                    if(typeof con.value == "undefined"){break;}
+                    _self.chucks.push(con.value);
+                    _self.downloadedSize += con.value.byteLength;
+                    typeof _self.onprogress == "function" ? _self.onprogress(_self) : 0;
+                }
+                if(ok){
+                    typeof _self.onload == "function" ? _self.onload(_self) : 0;
+                }
+                _self.running = false;
+                _self.loaded = true;
+            });
+        } catch (e) {
             if(_self.running == true) {
-                typeof _self.onerror == "function" ? _self.onerror(_self,Error(err)) : 0;
-                throw Error(err);
+                typeof _self.onerror == "function" ? _self.onerror(_self,e) : 0;
+                throw e;
             }
             _self.running = false;
-        });
+        }
     }
     RangeDownloader.prototype.pause = function () {
         this.running = false;
