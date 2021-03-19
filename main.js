@@ -25,13 +25,9 @@ var RangeDownloader = (function() {
             },
             signal: this.abortController.signal,
         }).then(function (resp){
-            if(resp.status == 206){
-                _self.supportPartial = true;
-                _self.totalSize = parseInt(resp.headers.get("Content-Range").split("/")[1]);
-            } else {
-                _self.supportPartial = false;
-                _self.totalSize = parseInt(resp.headers.get("Content-Length"));
-            }
+             _self.supportPartial = (resp.status == 206);
+            _self.totalSize = parseInt(resp.headers.get("Content-Length"));
+            _self.totalSize = _self.totalSize == NaN ? parseInt(resp.headers.get("Content-Range").split("/")[1]) : _self.totalSize;
             _self.running = true;
             return resp.body.getReader();
         }).then(async function (reader){
