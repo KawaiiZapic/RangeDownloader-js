@@ -47,8 +47,8 @@ var RangeDownloader = (function() {
             _self.loaded = true;
         }).catch(function (err){
             if(_self.running == true) {
+                typeof _self.onerror == "function" ? _self.onerror(_self,Error(err)) : 0;
                 throw Error(err);
-                typeof _self.onerror == "function" ? _self.onerror(_self,err) : 0;
             }
             _self.running = false;
         });
