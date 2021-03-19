@@ -14,6 +14,7 @@ var RangeDownloader = (function() {
         this.onerror = param.onerror || null;
         this.onload = param.onload || null;
         this.onprogress = param.onprogress || null;
+        this.chucks = [];
     };
     RangeDownloader.prototype.start = function () {
         if(this.loaded){return;}
@@ -76,7 +77,7 @@ var RangeDownloader = (function() {
     RangeDownloader.prototype.onprogress = null;
     RangeDownloader.prototype.onload = null;
     RangeDownloader.prototype.supportPartial = false;
-    RangeDownloader.prototype.chucks = [];
+    RangeDownloader.prototype.chucks = null;
     RangeDownloader.prototype.totalSize = 0;
     RangeDownloader.prototype.downloadedSize = 0;
     RangeDownloader.prototype.abortController = null;
