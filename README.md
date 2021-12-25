@@ -8,7 +8,7 @@
 |Compatible|XHR|10+|39+|42+|10.1+|
 
 ## CSDN我操你妈
-![CSDN我操你妈](https://user-images.githubusercontent.com/45936772/147377441-9caf68c1-29e0-4079-80ee-0075ae1e67e6.png)
+![CSDN我操你妈](https://user-images.githubusercontent.com/45936772/147377532-53152d3b-87a0-416e-b468-46f030b85870.png)
 
 ## Demo
 ```javascript
